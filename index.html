@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>HAPPY BIRTHDAY, RYAM LUYANDO  🔥💯❤️‍🔥</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            padding: 15px;
+            overflow: hidden;
+            background: #000;
+            /* Instant, high-velocity background color steps inspired by live arena entrance shows */
+            animation: stageLightingCycle 6s steps(1, end) infinite;
+            position: relative;
+        }
+
+        /* Fullscreen Interactive Fireworks Canvas Layer */
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            pointer-events: auto;
+        }
+
+        /* Cinematic Arena Blackout Intro */
+        .stadium-blackout {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #000000;
+            z-index: 100;
+            
+            pointer-events: none;
+            animation: grandOpeningFlash 1.6s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+        }
+
+        /* Grand Concert Card Container */
+        .main-card {
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            padding: 40px 25px;
+            border-radius: 32px;
+            width: 100%;
+            max-width: 375px;
+            text-align: center;
+            box-shadow: 
+                0 0 50px rgba(0, 0, 0, 0.9),
+                0 0 40px rgba(0, 210, 255, 0.3);
+            z-index: 10;
+            position: relative;
+            transform: scale(0.2) rotate(-3deg);
+            opacity: 0;
+            animation: cardSlamEntrance 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            animation-delay: 0.4s;
+            pointer-events: none; /* Allows taps to pass through to the canvas below */
+        }
+        
+        /* Make inner elements accept pointer events if needed, but text doesn't strictly need it */
+        .main-card * {
+            pointer-events: none;
+        }
+
+        /* Top Header Names Section */
+        .credits-banner {
+            margin-bottom: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            animation: textFloat 3s ease-in-out infinite alternate;
+        }
+
+        /* FROM WESLEY NYUNDO (BIG, CAPITALIZED, NEON ELECTRIC BLUE) */
+        .sender-tag {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.6);
+            letter-spacing: 4px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .sender-name {
+            display: block;
+            font-size: 2.1rem;
+            font-weight: 900;
+            color: #00d2ff; 
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 4px;
+            text-shadow: 
+                0 0 10px rgba(0, 210, 255, 0.9),
+                0 0 30px rgba(0, 210, 255, 0.5);
+        }
+
+        /* TO RYAM LUYANDO / LIAM NYUNDO (BIG, CRISP ALL CAPS) */
+        .recipient-tag {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.6);
+            letter-spacing: 4px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .recipient-name {
+            display: block;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-top: 4px;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+        }
+
+        /* GIANT MOVING GRADIENT HAPPY BIRTHDAY LINE */
+        h1.birthday-headline {
+            font-size: 2.8rem;
+            font-weight: 950;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            line-height: 1.0;
+            background: linear-gradient(45deg, #ff007f, #ff00ff, #00ffff, #ffff00, #ff007f);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 25px;
+            animation: fluidColorShift 4s linear infinite, headingPulse 1.5s ease-in-out infinite alternate;
+        }
+
+        /* High-Intensity Laser Divider Line */
+        .laser-divider {
+            height: 3px;
+            width: 120px;
+            background: linear-gradient(to right, #00d2ff, #ff007f, #ffff00);
+            margin: 0 auto 30px auto;
+            border-radius: 4px;
+            box-shadow: 0 0 15px #00d2ff;
+        }
+
+        /* Emotional Core Message Box */
+        .message-body {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: #f5edf7;
+            margin-bottom: 35px;
+            font-weight: 400;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+        }
+
+        .closing-signature {
+            font-size: 0.85rem;
+            color: #ff007f;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 700;
+            text-shadow: 0 0 10px rgba(255, 0, 127, 0.6);
+        }
+
+        /* STADIUM LIGHTING INSTANT COLOR CYCLES (Steps) */
+        @keyframes stageLightingCycle {
+            0%   { background-color: #0d061a; }
+            16%  { background-color: #02121c; }
+            33%  { background-color: #1a0310; }
+            50%  { background-color: #01170c; }
+            66%  { background-color: #171402; }
+            83%  { background-color: #12021c; }
+            100% { background-color: #0d061a; }
+        }
+
+        /* Intro Entrance Lightning Burst Sequence */
+        @keyframes grandOpeningFlash {
+            0% { opacity: 1; background: #000; }
+            15% { opacity: 1; background: #fff; } /* Laser flash */
+            22% { opacity: 0.9; background: #000; }
+            30% { opacity: 1; background: #fff; } /* Second flash */
+            100% { opacity: 0; transform: scale(1); visibility: hidden; }
+        }
+
+        /* Slamming Card Animation */
+        @keyframes cardSlamEntrance {
+            0% { opacity: 0; transform: scale(0.2) rotate(-8deg); filter: brightness(4); }
+            75% { opacity: 1; transform: scale(1.06) rotate(1deg); filter: brightness(1.3); }
+            100% { opacity: 1; transform: scale(1) rotate(0deg); filter: brightness(1); }
+        }
+
+        /* Multi-Color Text Smooth Flow Animation */
+        @keyframes fluidColorShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Gentle text floating and scale shifts to maximize screen value */
+        @keyframes textFloat {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-4px); }
+        }
+
+        @keyframes headingPulse {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.03); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Arena Blackout Overlay System -->
+    <div class="stadium-blackout"></div>
+
+    <!-- Live Interactive Fireworks Canvas Rendering Engine -->
+    <canvas id="fireworksCanvas"></canvas>
+
+    <!-- Main Card Content Matrix -->
+    <div class="main-card">
+        
+        <div class="credits-banner">
+            <div class="sender-tag">
+                From: <span class="sender-name">WESLEY</span>
+            </div>
+            <div class="recipient-tag">
+                To: <span class="recipient-name">RYAM LUYANDO❤️‍🔥💯</span>
+            </div>
+        </div>
+        
+        <h1 class="birthday-headline">HAPPY BIRTHDAY RYAM🔥💯💫🫶</h1>
+        
+        <div class="laser-divider"></div>
+        
+        <p class="message-body">
+            HAPPY BIRTHDAY, RYAM LUYANDO! 🌟💕
+            Wishing you the happiest birthday filled with joy,love and happiness.
+            No matter where life takes us or what the past has held, please know that
+            you hold a special place in my heart,i value the memories we shared, and genuinely hope you have
+            a wonderful and joyful day. love you 😘 
+        </p>
+
+        <p class="closing-signature">Thinking of you today</p>
+    </div>
+
+    <!-- Fireworks Engine Script Integration -->
+    <script>
+        const canvas = document.getElementById('fireworksCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // Dynamic viewport resize scaling
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        let particles = [];
+        let fireworks = [];
+
+        class Firework {
+            constructor(startX, startY, targetX, targetY) {
+                this.x = startX;
+                this.y = startY;
+                this.targetX = targetX;
+                this.targetY = targetY;
+                this.distanceToTarget = calculateDistance(startX, startY, targetX, targetY);
+                this.distanceTraveled = 0;
+                this.coordinates = [];
+                this.coordinateCount = 3;
+                while(this.coordinateCount--) {
+                    this.coordinates.push([this.x, this.y]);
+                }
+                this.angle = Math.atan2(targetY - startY, targetX - startX);
+                this.speed = 12;
+                this.acceleration = 1.03;
+                this.brightness = randomRange(50, 70);
+                this.hue = randomRange(0, 360);
+            }
+
+            update(index) {
+                this.coordinates.pop();
+                this.coordinates.unshift([this.x, this.y]);
+                this.speed *= this.acceleration;
+                
+                let vx = Math.cos(this.angle) * this.speed;
+                let vy = Math.sin(this.angle) * this.speed;
+                this.distanceTraveled = calculateDistance(this.x + vx, this.y + vy, this.targetX, this.targetY);
+                
+                if(this.distanceTraveled <= this.speed) {
+                    createParticles(this.targetX, this.targetY, this.hue);
+                    fireworks.splice(index, 1);
+                } else {
+                    this.x += vx;
+                    this.y += vy;
+                }
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.moveTo(this.coordinates[this.coordinates.length - 1][0], this.coordinates[this.coordinates.length - 1][1]);
+                ctx.lineTo(this.x, this.y);
+                ctx.strokeStyle = `hsl(${this.hue}, 100%, ${this.brightness}%)`;
+                ctx.lineWidth = 2;
+                ctx.stroke();
+            }
+        }
+
+        class Particle {
+            constructor(x, y, hue) {
+                this.x = x;
+                this.y = y;
+                this.coordinates = [];
+                this.coordinateCount = 5;
+                while(this.coordinateCount--) {
+                    this.coordinates.push([this.x, this.y]);
+                }
+                this.angle = randomRange(0, Math.PI * 2);
+                this.speed = randomRange(1, 10);
+                this.friction = 0.95;
+                this.gravity = 1.2;
+                this.hue = randomRange(hue - 20, hue + 20);
+                this.brightness = randomRange(50, 80);
+                this.alpha = 1;
+                this.decay = randomRange(0.015, 0.03);
+            }
+
+            update(index) {
+                this.coordinates.pop();
+                this.coordinates.unshift([this.x, this.y]);
+                this.speed *= this.friction;
+                this.x += Math.cos(this.angle) * this.speed;
+                this.y += Math.sin(this.angle) * this.speed + this.gravity;
+                this.alpha -= this.decay;
+                
+                if(this.alpha <= this.decay) {
+                    particles.splice(index, 1);
+                }
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.moveTo(this.coordinates[this.coordinates.length - 1][0], this.coordinates[this.coordinates.length - 1][1]);
+                ctx.lineTo(this.x, this.y);
+                ctx.strokeStyle = `hsla(${this.hue}, 100%, ${this.brightness}%, ${this.alpha})`;
+                ctx.lineWidth = 2;
+                ctx.stroke();
+            }
+        }
+
+        function calculateDistance(p1x, p1y, p2x, p2y) {
+            return Math.sqrt(Math.pow(p1x - p2x, 2) + Math.pow(p1y - p2y, 2));
+        }
+
+        function randomRange(min, max) {
+            return Math.random() * (max - min) + min;
+        }
+
+        function createParticles(x, y, hue) {
+            let particleCount = 60;
+            while(particleCount--) {
+                particles.push(new Particle(x, y, hue));
+            }
+        }
+
+        function launchAutomaticFirework() {
+            let startX = randomRange(0, canvas.width);
+            let startY = canvas.height;
+            let targetX = randomRange(0, canvas.width);
+            let targetY = randomRange(0, canvas.height * 0.6);
+            fireworks.push(new Firework(startX, startY, targetX, targetY));
+        }
+
+        // Interactive Screen Tapping Feature Logic
+        window.addEventListener('pointerdown', (e) => {
+            let startX = canvas.width / 2;
+            if(Math.random() > 0.5) startX = e.clientX; 
+            fireworks.push(new Firework(startX, canvas.height, e.clientX, e.clientY));
+        });
+
+        // Main Animation Engine Loop
+        let autoLaunchTimer = 0;
+        function loop() {
+            requestAnimationFrame(loop);
+            
+            // Creates smooth neon trailing motion blur paths
+            ctx.globalCompositeOperation = 'destination-out';
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.25)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.globalCompositeOperation = 'lighter';
+            
+            let i = fireworks.length;
+            while(i--) {
+                fireworks[i].draw();
+                fireworks[i].update(i);
+            }
+            
+            let j = particles.length;
+            while(j--) {
+                particles[j].draw();
+                particles[j].update(j);
+            }
+            
+            if(autoLaunchTimer >= 20) {
+                launchAutomaticFirework();
+                autoLaunchTimer = 0;
+            } else {
+                autoLaunchTimer++;
+            }
+        }
+
+        // Delay loop slightly to blend seamlessly into arena entrance blackout flash
+        setTimeout(loop, 400);
+    </script>
+</body>
+</html>
